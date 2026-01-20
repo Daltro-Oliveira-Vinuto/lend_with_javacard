@@ -34,7 +34,7 @@ generate_cap:
 JAVA11_BIN :=/opt/java/jdk-11/bin
 GP := ~/gp_v25.10.20/gp.jar
 RUN_GP :=$(JAVA11_BIN)/java -jar  $(GP)
-install_cap:
+load_cap:
 	$(RUN_GP) -install bin/card/javacard/card.cap
 
 
