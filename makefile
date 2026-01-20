@@ -4,6 +4,8 @@ all: compile generate_cap
 
 JAVA8_BIN :=/usr/lib/jvm/java-8-openjdk-amd64/bin
 
+JAVA_SRC := HelloWorld
+
 compile:
 	$(JAVA8_BIN)/javac -version
 	@echo 
@@ -11,7 +13,7 @@ compile:
 	$(JAVA8_BIN)/javac -source 1.2 -target 1.2 \
 	-cp ~/javacard-sdk-3.0.5/lib/api_classic.jar \
 	-d bin \
-	src/main/java/card/HelloWorld.java
+	src/main/java/card/$(JAVA_SRC).java
 
 	@echo "Compilation finished, file *.class created\n"
 
@@ -22,7 +24,7 @@ generate_cap:
 	com.sun.javacard.converter.Converter \
 	-classdir bin \
 	-exportpath $(JAVACARD_SDK)/api_export_files \
-	-applet 0xA0:0x00:0x00:0x00:0x62:0x03:0x01:0x0C:0x01 card.HelloWorld \
+	-applet 0xA0:0x00:0x00:0x00:0x62:0x03:0x01:0x0C:0x01 card.$(JAVA_SRC) \
 	card 0xA0:0x00:0x00:0x00:0x62:0x03:0x01:0x0C 1.0 \
 	-noverify
 
