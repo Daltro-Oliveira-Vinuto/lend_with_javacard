@@ -1,10 +1,12 @@
 all: compile generate_cap
 
+JAVA_BIN :=/usr/lib/jvm/java-8-openjdk-amd64/bin
+
 compile:
-	javac -version
+	$(JAVA_BIN)/javac -version
 	@echo 
 
-	javac -source 1.2 -target 1.2 \
+	$(JAVA_BIN)/javac -source 1.2 -target 1.2 \
 	-cp ~/javacard-sdk-3.0.5/lib/api_classic.jar \
 	-d bin \
 	src/main/java/card/HelloWorld.java
@@ -13,7 +15,8 @@ compile:
 
 JC_SDK :=/home/daltro/java_card_kit-2_2_2-rr-bin-linux-do
 generate_cap: 
-	java -cp $(JC_SDK)/lib/converter.jar:$(JC_SDK)/lib/api.jar \
+	$(JAVA_BIN)/java -cp \
+	$(JC_SDK)/lib/converter.jar:$(JC_SDK)/lib/api.jar \
 	com.sun.javacard.converter.Converter \
 	-classdir bin \
 	-exportpath $(JC_SDK)/api_export_files \
@@ -43,3 +46,10 @@ apdu_1 := 00A4040009A00000006203010C01
 apdu_2 := 80010000
 send_apdu:
 	$(run_gp) -a $(apdu_1) -a $(apdu_2)
+
+
+list:
+	$(run_gp) --list
+
+info:
+	$(run_gp) --info
